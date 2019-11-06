@@ -7,12 +7,14 @@
   
   <title>蓝牙 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="article">
+  <meta name="description" content="STM32Cube Mx蓝牙功能的相关配置一.打开软件点击工具栏中的help，选中Manage embedded software packages,下载STM32F4的1.24.1版本的固件包。然后选中STMicroelectronics,下载X_CUBE_BLE1的4.4.0版本的固件包和X_CUBE_MEMS1的6.2.0固件包。 二.点击New projiet 进入芯片选择页面我这里选择的">
+<meta property="og:type" content="article">
 <meta property="og:title" content="蓝牙">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;05&#x2F;post-%E8%93%9D%E7%89%99&#x2F;index.html">
+<meta property="og:url" content="CCIT18081430524.github.io&#x2F;2019&#x2F;11&#x2F;05&#x2F;post-%E8%93%9D%E7%89%99&#x2F;index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="STM32Cube Mx蓝牙功能的相关配置一.打开软件点击工具栏中的help，选中Manage embedded software packages,下载STM32F4的1.24.1版本的固件包。然后选中STMicroelectronics,下载X_CUBE_BLE1的4.4.0版本的固件包和X_CUBE_MEMS1的6.2.0固件包。 二.点击New projiet 进入芯片选择页面我这里选择的">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-11-05T13:40:59.672Z">
+<meta property="og:updated_time" content="2019-11-06T03:27:40.130Z">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
@@ -58,7 +60,7 @@
         <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       </nav>
       <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="CCIT18081430524.github.io"></form>
       </div>
     </div>
   </div>
@@ -86,11 +88,15 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <h2 id="STM32Cube-Mx蓝牙功能的相关配置"><a href="#STM32Cube-Mx蓝牙功能的相关配置" class="headerlink" title="STM32Cube Mx蓝牙功能的相关配置"></a>STM32Cube Mx蓝牙功能的相关配置</h2><h4 id="一-打开软件"><a href="#一-打开软件" class="headerlink" title="一.打开软件"></a>一.打开软件</h4><p>点击工具栏中的help，选中<strong>Manage embedded software packages</strong>,下载STM32F4的1.24.1版本的固件包。然后选中STMicroelectronics,下载<strong>X_CUBE_BLE1</strong>的4.4.0版本的固件包和<strong>X_CUBE_MEMS1</strong>的6.2.0固件包。</p>
+<h4 id="二-点击New-projiet-进入芯片选择页面"><a href="#二-点击New-projiet-进入芯片选择页面" class="headerlink" title="二.点击New projiet 进入芯片选择页面"></a>二.点击New projiet 进入芯片选择页面</h4><p>我这里选择的是STM32F401RETx(因为我的芯片就是这个型号，大家可以根据自己芯片的型号进行选择)</p>
+<h4 id="三-选择芯片后进入工程配置"><a href="#三-选择芯片后进入工程配置" class="headerlink" title="三.选择芯片后进入工程配置"></a>三.选择芯片后进入工程配置</h4><p>1.在Additional Software中的<strong>STMicorelectronics.X_CUBE_BLE1</strong>分别展开隐藏的文件，<strong>Application</strong>中选择<strong>Beacon,HCI_TL</strong>选择<strong>Basic</strong>,<strong>HCI_TL_INTERFACE</strong>选择<strong>UserBoard</strong>。<br>2.在<strong>System Core</strong>中配置SWD调试模式。选中<strong>SYS,Debug</strong>中选择<strong>Serial Wire</strong>。<br>3.在<strong>Connectivity</strong>中配置全双工模式和串口的<em>异步模式<em>。在*</em>SPI1<strong>的Mode中选择</strong>Full_Duplex Master<strong>(全双工模式)，在下面的</strong>Parameter Settings<strong>配置时钟参数，在</strong>Clock Parameters<strong>中配置 Prescaler（预分频器）为4；选择USART1,Mode中选择Asynchronous(异步模式)<br>4.点击</strong>Additional Software** 下方的<strong>X_CUBE_BLE1.4.4.0</strong>, 然后把<strong>Wireless BlueNRG_MS</strong>和 <strong>Wireless Application</strong>都勾选上。然后在<strong>Platform Settings</strong>下方进行相关配置，根据原理图把 <em>PC4</em>设置为外部中断引脚，所以<em>Exti Line</em>中选择PC4；当初是在<strong>SPI1</strong>中设置的全双工模式，所以<strong>BUS IO driver</strong>中选择的是<strong>SPI1</strong>;设置PA4和PB1为GPIO_Output,所以CS Line 中选择PA4,Reset Linez 中选择PB1，在<strong>BSP USART</strong>中选择<strong>USART1</strong>。<br>5.选择芯片上方的<strong>System view</strong>,然后选中GPIO,在左侧的方格中选择NVIC把*EXTI line4 interrruput</em> 勾选上。</p>
+<h4 id="四-点击菜单栏中的Project-Manager进入工程配置"><a href="#四-点击菜单栏中的Project-Manager进入工程配置" class="headerlink" title="四.点击菜单栏中的Project Manager进入工程配置"></a>四.点击菜单栏中的<strong>Project Manager</strong>进入工程配置</h4><p>命名好工程名称和选择好工程存储路径就可以点击<strong>GENERATE CODE</strong>生成工程了。（这里强调一下工程名和 工程存储路径中最好都是英文不要存在中文，不然容易出错）进入工程后可以先运行下看看是否是零个错误零个警告，如果是的说明工程建立成功。</p>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/11/05/post-%E8%93%9D%E7%89%99/" data-id="ck2mnpyei0002vkvo3wa3brrg" class="article-share-link">Share</a>
+      <a data-url="CCIT18081430524.github.io/2019/11/05/post-%E8%93%9D%E7%89%99/" data-id="ck2mplq7s0000t8vodx1vhm64" class="article-share-link">Share</a>
       
       
     </footer>
